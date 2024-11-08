@@ -28,325 +28,327 @@ TinyFrame COM_tf;
 
 void TF_WriteImpl(TinyFrame *tf, const uint8_t *buff, uint32_t len)
 {
-	CDC_Transmit_FS(buff, len);
+	CDC_Transmit_FS((uint8_t*)buff, len);
 }
 
-void COM_FallbackListener(TinyFrame *tf, TF_Msg *msg)
+TF_Result COM_FallbackListener(TinyFrame *tf, TF_Msg *msg)
 {
-
+	return TF_STAY;
 }
 
-void COM_OnMcuIdReceived(TinyFrame *tf, TF_Msg *msg)
+TF_Result COM_OnMcuIdReceived(TinyFrame *tf, TF_Msg *msg)
 {
 	BoardStatus data;
-	pb_ostream_t = ostream;
-	TF_Msg msg;
+	pb_ostream_t ostream;
+	TF_Msg txmsg;
 
 	data.board_timestamp = Board_GetTimestamp();
 	data.error_code = Board_GetErrorCode();
 	data.temperature = Board_GetTemperature();
 	data.firmware_version = Board_GetFirmwareVersion();
 
-	ostream = pb_ostream_from_buffer(msg->data, BoardStatus_size);
+	ostream = pb_ostream_from_buffer((pb_byte_t*)txmsg.data, BoardStatus_size);
 
-	pb_encode(&ostream, BoardStatus_msg, &data);
-
-	TF_Send(&COM_tf, &msg);
+	if( pb_encode(&ostream, &BoardStatus_msg, (const void*)&data) )
+	{
+		TF_Send(&COM_tf, &txmsg);
+	}
+	return TF_STAY;
 }
 
-void COM_OnMcuStatusReceived(TinyFrame *tf, TF_Msg *msg)
+TF_Result COM_OnMcuStatusReceived(TinyFrame *tf, TF_Msg *msg)
 {
-
+	return TF_STAY;
 }
 
-void COM_OnSafetyWatchdogPingReceived(TinyFrame *tf, TF_Msg *msg)
+TF_Result COM_OnSafetyWatchdogPingReceived(TinyFrame *tf, TF_Msg *msg)
 {
-
+	return TF_STAY;
 }
 
-void COM_OnSafetyWatchdogConfigReceived(TinyFrame *tf, TF_Msg *msg)
+TF_Result COM_OnSafetyWatchdogConfigReceived(TinyFrame *tf, TF_Msg *msg)
 {
-
+	return TF_STAY;
 }
 
-void COM_OnSafetyWatchdogStatusReceived(TinyFrame *tf, TF_Msg *msg)
+TF_Result COM_OnSafetyWatchdogStatusReceived(TinyFrame *tf, TF_Msg *msg)
 {
-
+	return TF_STAY;
 }
 
-void COM_OnEmergencyStopReceived(TinyFrame *tf, TF_Msg *msg)
+TF_Result COM_OnEmergencyStopReceived(TinyFrame *tf, TF_Msg *msg)
 {
-
-}
-
-
-
-void COM_OnStepperEnableReceived_1(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-void COM_OnStepperEnableReceived_2(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-void COM_OnStepperEnableReceived_3(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-void COM_OnStepperEnableReceived_4(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-
-void COM_OnStepperModeReceived_1(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-void COM_OnStepperModeReceived_2(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-void COM_OnStepperModeReceived_3(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-void COM_OnStepperModeReceived_4(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-
-void COM_OnStepperTelemetryReceived_1(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-void COM_OnStepperTelemetryReceived_2(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-void COM_OnStepperTelemetryReceived_3(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-void COM_OnStepperTelemetryReceived_4(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-
-void COM_OnStepperTargetSpeedReceived_1(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-void COM_OnStepperTargetSpeedReceived_2(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-void COM_OnStepperTargetSpeedReceived_3(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-void COM_OnStepperTargetSpeedReceived_4(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-
-void COM_OnStepperTargetPositionReceived_1(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-void COM_OnStepperTargetPositionReceived_2(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-void COM_OnStepperTargetPositionReceived_3(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-void COM_OnStepperTargetPositionReceived_4(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-
-void COM_OnStepperCurrentSpeedReceived_1(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-void COM_OnStepperCurrentSpeedReceived_2(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-void COM_OnStepperCurrentSpeedReceived_3(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-void COM_OnStepperCurrentSpeedReceived_4(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-
-void COM_OnStepperCurrentPositionReceived_1(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-void COM_OnStepperCurrentPositionReceived_2(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-void COM_OnStepperCurrentPositionReceived_3(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-void COM_OnStepperCurrentPositionReceived_4(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-
-void COM_OnStepperConfigReceived_1(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-void COM_OnStepperConfigReceived_2(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-void COM_OnStepperConfigReceived_3(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-void COM_OnStepperConfigReceived_4(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-
-void COM_OnStepperStatusReceived_1(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-void COM_OnStepperStatusReceived_2(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-void COM_OnStepperStatusReceived_3(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-void COM_OnStepperStatusReceived_4(TinyFrame *tf, TF_Msg *msg)
-{
-
+	return TF_STAY;
 }
 
 
 
-void COM_OnServosEnableReceived(TinyFrame *tf, TF_Msg *msg)
+TF_Result COM_OnStepperEnableReceived_1(TinyFrame *tf, TF_Msg *msg)
 {
-
+	return TF_STAY;
 }
 
-void COM_OnServosSetTargetReceived(TinyFrame *tf, TF_Msg *msg)
+TF_Result COM_OnStepperEnableReceived_2(TinyFrame *tf, TF_Msg *msg)
 {
-
+	return TF_STAY;
 }
 
-void COM_OnServosSetVoltageReceived(TinyFrame *tf, TF_Msg *msg)
+TF_Result COM_OnStepperEnableReceived_3(TinyFrame *tf, TF_Msg *msg)
 {
-
+	return TF_STAY;
 }
 
-void COM_OnServosStatusReceived(TinyFrame *tf, TF_Msg *msg)
+TF_Result COM_OnStepperEnableReceived_4(TinyFrame *tf, TF_Msg *msg)
 {
-
-}
-
-
-void COM_OnDigitalInputStatesReceived(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-void COM_OnDigitalInputConfigReceived(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-void COM_OnDigitalOutputStatesReceived(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-void COM_OnAnalogInputStatesReceived(TinyFrame *tf, TF_Msg *msg)
-{
-
-}
-
-void COM_OnAnalogInputConfigReceived(TinyFrame *tf, TF_Msg *msg)
-{
-
+	return TF_STAY;
 }
 
 
-void COM_OnEncoderStateReceived_1(TinyFrame *tf, TF_Msg *msg)
+TF_Result COM_OnStepperModeReceived_1(TinyFrame *tf, TF_Msg *msg)
 {
-
+	return TF_STAY;
 }
 
-void COM_OnEncoderConfigReceived_1(TinyFrame *tf, TF_Msg *msg)
+TF_Result COM_OnStepperModeReceived_2(TinyFrame *tf, TF_Msg *msg)
 {
-
+	return TF_STAY;
 }
 
-void COM_OnEncoderStateReceived_2(TinyFrame *tf, TF_Msg *msg)
+TF_Result COM_OnStepperModeReceived_3(TinyFrame *tf, TF_Msg *msg)
 {
-
+	return TF_STAY;
 }
 
-void COM_OnEncoderConfigReceived_2(TinyFrame *tf, TF_Msg *msg)
+TF_Result COM_OnStepperModeReceived_4(TinyFrame *tf, TF_Msg *msg)
 {
-
+	return TF_STAY;
 }
 
 
-void COM_OnResetBoardReceived(TinyFrame *tf, TF_Msg *msg)
+TF_Result COM_OnStepperTelemetryReceived_1(TinyFrame *tf, TF_Msg *msg)
 {
-
+	return TF_STAY;
 }
 
-void COM_OnGoToDfuReceived(TinyFrame *tf, TF_Msg *msg)
+TF_Result COM_OnStepperTelemetryReceived_2(TinyFrame *tf, TF_Msg *msg)
 {
+	return TF_STAY;
+}
 
+TF_Result COM_OnStepperTelemetryReceived_3(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+TF_Result COM_OnStepperTelemetryReceived_4(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+
+TF_Result COM_OnStepperTargetSpeedReceived_1(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+TF_Result COM_OnStepperTargetSpeedReceived_2(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+TF_Result COM_OnStepperTargetSpeedReceived_3(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+TF_Result COM_OnStepperTargetSpeedReceived_4(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+
+TF_Result COM_OnStepperTargetPositionReceived_1(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+TF_Result COM_OnStepperTargetPositionReceived_2(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+TF_Result COM_OnStepperTargetPositionReceived_3(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+TF_Result COM_OnStepperTargetPositionReceived_4(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+
+TF_Result COM_OnStepperCurrentSpeedReceived_1(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+TF_Result COM_OnStepperCurrentSpeedReceived_2(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+TF_Result COM_OnStepperCurrentSpeedReceived_3(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+TF_Result COM_OnStepperCurrentSpeedReceived_4(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+
+TF_Result COM_OnStepperCurrentPositionReceived_1(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+TF_Result COM_OnStepperCurrentPositionReceived_2(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+TF_Result COM_OnStepperCurrentPositionReceived_3(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+TF_Result COM_OnStepperCurrentPositionReceived_4(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+
+TF_Result COM_OnStepperConfigReceived_1(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+TF_Result COM_OnStepperConfigReceived_2(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+TF_Result COM_OnStepperConfigReceived_3(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+TF_Result COM_OnStepperConfigReceived_4(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+
+TF_Result COM_OnStepperStatusReceived_1(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+TF_Result COM_OnStepperStatusReceived_2(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+TF_Result COM_OnStepperStatusReceived_3(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+TF_Result COM_OnStepperStatusReceived_4(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+
+
+TF_Result COM_OnServosEnableReceived(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+TF_Result COM_OnServosSetTargetReceived(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+TF_Result COM_OnServosSetVoltageReceived(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+TF_Result COM_OnServosStatusReceived(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+
+TF_Result COM_OnDigitalInputStatesReceived(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+TF_Result COM_OnDigitalInputConfigReceived(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+TF_Result COM_OnDigitalOutputStatesReceived(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+TF_Result COM_OnAnalogInputStatesReceived(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+TF_Result COM_OnAnalogInputConfigReceived(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+
+TF_Result COM_OnEncoderStateReceived_1(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+TF_Result COM_OnEncoderConfigReceived_1(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+TF_Result COM_OnEncoderStateReceived_2(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+TF_Result COM_OnEncoderConfigReceived_2(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+
+TF_Result COM_OnResetBoardReceived(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
+}
+
+TF_Result COM_OnGoToDfuReceived(TinyFrame *tf, TF_Msg *msg)
+{
+	return TF_STAY;
 }
 
 

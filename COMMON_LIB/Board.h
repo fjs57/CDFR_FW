@@ -8,6 +8,9 @@
 #ifndef BOARD_H_
 #define BOARD_H_
 
+#include "BoardDescription.h"
+#include "main.h"
+
 typedef enum
 {
 	BOARD_NO_ERROR = 0,
