@@ -1,0 +1,3 @@
+[submodule "COM_LIB/CDFR_COM_LIB"]
+	path = COM_LIB/CDFR_COM_LIB
+	url = git@github.com:fjs57/CDFR_COM_LIB.git
