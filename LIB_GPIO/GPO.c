@@ -57,7 +57,7 @@ void GPO_Process(void)
 
 void GPO_SetState(uint16_t id, bool state)
 {
-	if ( id > =GPO_COUNT ) return; // forbidden case
+	if ( id >= GPO_COUNT ) return; // forbidden case
 	GPO_STATES[id] = state;
 }
 

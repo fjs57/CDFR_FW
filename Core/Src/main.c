@@ -22,7 +22,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "../../LIB_COM/COM.h"
+#include "COM.h"
+#include "StatusLeds.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -44,6 +45,12 @@
 
 /* USER CODE BEGIN PV */
 
+StatusLeds_Descriptor_t StatusLeds_Descriptor = {
+		.ApplicationLed = {ApplicationLed_GPIO_Port, ApplicationLed_Pin},
+		.TxDataLed = {TxEventLed_GPIO_Port, TxEventLed_Pin},
+		.RxDataLed = {RxEventLed_GPIO_Port, RxEventLed_Pin},
+		.ErrorLed = {ErrorLed_GPIO_Port, ErrorLed_Pin}
+};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -90,6 +97,7 @@ int main(void)
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
   COM_Init();
+  StatusLeds_Init(&StatusLeds_Descriptor);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -156,13 +164,24 @@ void SystemClock_Config(void)
   */
 static void MX_GPIO_Init(void)
 {
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
 /* USER CODE BEGIN MX_GPIO_Init_1 */
 /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOH_CLK_ENABLE();
-  __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, ErrorLed_Pin|ApplicationLed_Pin|TxEventLed_Pin|RxEventLed_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pins : ErrorLed_Pin ApplicationLed_Pin TxEventLed_Pin RxEventLed_Pin */
+  GPIO_InitStruct.Pin = ErrorLed_Pin|ApplicationLed_Pin|TxEventLed_Pin|RxEventLed_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */

@@ -57,6 +57,14 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define ErrorLed_Pin GPIO_PIN_12
+#define ErrorLed_GPIO_Port GPIOB
+#define ApplicationLed_Pin GPIO_PIN_13
+#define ApplicationLed_GPIO_Port GPIOB
+#define TxEventLed_Pin GPIO_PIN_14
+#define TxEventLed_GPIO_Port GPIOB
+#define RxEventLed_Pin GPIO_PIN_15
+#define RxEventLed_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 
