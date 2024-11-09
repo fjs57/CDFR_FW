@@ -8,8 +8,8 @@
 #ifndef BOARD_H_
 #define BOARD_H_
 
-#include "BoardDescription.h"
 #include "main.h"
+#include "../LIB_COMMON/BoardDescription.h"
 
 typedef enum
 {

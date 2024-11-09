@@ -6,23 +6,20 @@
  */
 
 
-#include "COM.h"
-
-#include "TF.h"
-
-#include "pb_common.h"
-#include "pb_decode.h"
-#include "pb_encode.h"
-
-#include "Common.pb.h"
-#include "Encoder.pb.h"
-#include "GPIO.pb.h"
-#include "Servo.pb.h"
-#include "Stepper.pb.h"
-
-#include "Board.h"
+#include "../LIB_COM/COM.h"
 
 #include "usbd_cdc_if.h"
+
+#include "../LIB_COM/CDFR_COM_LIB/nanoPB/common/pb_common.h"
+#include "../LIB_COM/CDFR_COM_LIB/nanoPB/common/pb_decode.h"
+#include "../LIB_COM/CDFR_COM_LIB/nanoPB/common/pb_encode.h"
+#include "../LIB_COM/CDFR_COM_LIB/nanoPB/messages/Common.pb.h"
+#include "../LIB_COM/CDFR_COM_LIB/nanoPB/messages/Encoder.pb.h"
+#include "../LIB_COM/CDFR_COM_LIB/nanoPB/messages/GPIO.pb.h"
+#include "../LIB_COM/CDFR_COM_LIB/nanoPB/messages/Servo.pb.h"
+#include "../LIB_COM/CDFR_COM_LIB/nanoPB/messages/Stepper.pb.h"
+#include "../LIB_COM/CDFR_COM_LIB/TinyFrame/TF.h"
+#include "../LIB_COMMON/Board.h"
 
 TinyFrame COM_tf;
 

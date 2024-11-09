@@ -22,7 +22,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "COM.h"
+#include "../../LIB_COM/COM.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/

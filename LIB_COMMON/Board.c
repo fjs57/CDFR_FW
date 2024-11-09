@@ -6,7 +6,7 @@
  */
 
 
-#include "Board.h"
+#include "../LIB_COMMON/Board.h"
 
 uint32_t Board_GetTimestamp(void)
 {
