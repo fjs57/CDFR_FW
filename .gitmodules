@@ -1,3 +1,6 @@
 [submodule "LIB_COM/CDFR_COM_LIB"]
 	path = LIB_COM/CDFR_COM_LIB
 	url = git@github.com:fjs57/CDFR_COM_LIB.git
+[submodule "LIB_MOT/CDFR_MPP_LIB"]
+	path = LIB_MOT/CDFR_MPP_LIB
+	url = git@github.com:fjs57/CDFR_MPP_LIB.git
